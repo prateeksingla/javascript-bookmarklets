@@ -1,0 +1,5 @@
+Use the bookmarklet below on IOCL Swadhyaya NXT platform to skip to next slide.
+
+```js copy
+javascript:void((function(){var f=document.querySelector('iframe');if(!f)return alert('No iframe found');var d=f.contentDocument||f.contentWindow.document;if(!d)return alert('Cannot access iframe');var b=d.querySelector('.slide-control-button-next');if(!b)return alert('Next button not found');var inst=b._reactInternalComponent;if(!inst)return alert('React component not found');function findOwner(comp,target,cur){if(!comp)return null;var owner=comp._currentElement&&comp._currentElement._owner;if(owner){if(cur===target)return owner._instance||owner.stateNode;return findOwner(owner,target,cur+1)}return null}[0,1,4].forEach(function(d){var comp=findOwner(inst,d,0);if(comp)comp.setState({stateable_next:'normal',disabled:false})});var el=inst._currentElement;if(el&&el.props&&el.props.onClick){el.props.onClick({preventDefault:function(){},stopPropagation:function(){},nativeEvent:{stopImmediatePropagation:function(){}},target:b,currentTarget:b});alert('Next slide triggered!')}else{alert('onClick handler not found')}})())
+```
